@@ -1,0 +1,53 @@
+SpringBoard.txt
+
+  DB   
+    데이터베이스 생성, 계정준비
+    테이블 설계, 생성
+    더미 데이터 추가
+  
+  스프링MVC
+    패키지 준비 (domain/persistence/service/controller/....)
+    파트별 동작 준비
+    파트별 테스트 준비
+      
+  View
+    화면방식 결정(JSP/HTML(+js))
+    페이지 경로설정( 절대경로, 상대경로 )
+    
+    
+    
+    
+  CREATE TABLE `springdb`.`tbl_board` (
+  `bno` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(200) NOT NULL,
+  `content` TEXT NULL,
+  `writer` VARCHAR(45) NOT NULL,
+  `viewcnt` INT NULL DEFAULT 0,
+  `regdate` TIMESTAMP NOT NULL DEFAULT now(),
+  PRIMARY KEY (`bno`));
+  
+  
+  * MVC 구조에서의 상대경로
+  
+    1) 가상주소  => ./ (프로젝트명)
+      (JSP)    ./MemberJoin.me   => MVC/MemberJoin.me
+     (SPRING)  ./member/insert  =>  controller/member/insert
+       
+    2) 실제주소  => ./  (본문최상위 경로)
+      (JSP)    ./member/login.jsp   => WebContent/member/login.jsp
+      (SPRING) ./image/hello.jpg    => webapp/image/hello.jpg
+       
+  
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
