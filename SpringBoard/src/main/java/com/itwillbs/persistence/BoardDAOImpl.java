@@ -1,5 +1,7 @@
 package com.itwillbs.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -25,6 +27,7 @@ public class BoardDAOImpl implements BoardDAO{
 	//mapper주소 상수로 고정
 	private static final String NAMESPACE = "com.itwillbs.mapper.BoardMapper";
 	
+	//글쓰기
 	@Override
 	public void insertBoard(BoardVO vo) {
 		log.info("DAO: insertBoard(vo) 호출");
@@ -40,4 +43,50 @@ public class BoardDAOImpl implements BoardDAO{
 		log.info("DAO: 글쓰기 동작 완료 !");
 		}
 	}
+	
+	//글 전체 목록 조회
+	@Override
+	public List<BoardVO> listAll() throws Exception {
+		log.info("DAO: listAll()호출");
+
+		// DB모든정보 가져오기(SQL/mapper 호출)
+		List<BoardVO> boardList = sqlSession.selectList(NAMESPACE + ".listAll");
+
+		// log.info("boardList: "+boardList);
+		log.info("boardList: " + boardList.size());
+
+		return boardList;
+	}
+
+	// 글 1개정보(내용) 조회
+	@Override
+	public BoardVO getBoard(Integer bno) throws Exception {
+		log.info("DAO: getBoard(int)호출");
+		BoardVO vo = sqlSession.selectOne(NAMESPACE+".read",bno);
+		
+		return vo;
+		//return sqlSession.selectOne(NAMESPACE+".read",bno); -> 이것도 가능 
+		
+	}
+	
+	//글 조회수 1증가 
+	@Override
+	public void updateReadCount(Integer bno) throws Exception {
+		log.info("DAO: updateReadCount() 호출");
+		//SQL - mapper 쿼리구문 호출 
+		sqlSession.update(NAMESPACE+".updateReadCnt",bno);
+		
+	}
+	
+	//글 수정 
+	@Override
+	public Integer updateBoard(BoardVO vo) throws Exception {
+		log.info(" updateBoard(BoardVO vo) 호출 ");
+		
+		int cnt = sqlSession.update(NAMESPACE + ".updateBoard",vo);		
+		
+		return cnt;
+	}
+	
+	
 }

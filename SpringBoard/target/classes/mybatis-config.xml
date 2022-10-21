@@ -2,10 +2,12 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
-  
+
+<!-- mapper파일에서 name해당 주소 생략가능  -->
 <configuration>
-
-
+	<typeAliases>
+		<package name="com.itwillbs.domain"/>
+	</typeAliases>
 </configuration>
 
 

@@ -12,5 +12,40 @@
 	<!-- 글쓰기  -->
 	<!-- #{}로 값을 전달받기 위해서는 -> 1.테이블의 컬럼명과 BoardVO의 변수명이 같아야하고 2.view페이지 태그안 name이 컬럼명,변수명과 일치해야함  -->
 	<!-- Controller -> DAO -> mapper로 넘어온 값 (컬럼명과 일치하는 #{}안의 값들)을 mapper가 컬럼명,변수명으로 자동으로 찾아서 매핑해줌  -->
+	
+	<!--전체 글 목록 조회 -->
+	<select id="listAll" resultType="BoardVO" resultMap="vo">
+		select * from tbl_board 
+		where bno &gt; 0
+		order by bno desc
+	</select>
 
+	<!-- content(글내용)을 로그 창에 표시할 수 있게함 -->
+	<resultMap type="com.itwillbs.domain.BoardVO" id="vo">
+		<result property="content" column="content"/>
+	</resultMap>
+	<!--전체 글 목록 조회 -->
+	
+	<!-- 글 1개정보(내용) 조회 -->
+	<select id="read" resultType="BoardVO">
+		select * from tbl_board
+		where bno= #{bno}
+	</select>
+	<!-- 글 1개정보(내용) 조회 -->
+	
+	<!-- 글 조회수 1증가  -->
+	<update id="updateReadCnt">
+		update tbl_board 
+		set viewcnt=viewcnt+1 
+		where bno = #{bno}
+	</update>
+	<!-- 글 조회수 1증가  -->
+	
+	<!-- 글 수정하기  -->
+	<update id="updateBoard">
+		update tbl_board 
+		set title=#{title},writer=#{writer},content=#{content} 
+		where bno=#{bno}
+	</update>
+	<!-- 글 수정하기  -->
 </mapper>
